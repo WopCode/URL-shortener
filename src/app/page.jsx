@@ -1,30 +1,12 @@
 import Footer from "@/components/footer";
 import Navbar from "../components/navbar";
-import { IconLocationFilled, IconLinkPlus } from "@tabler/icons-react";
+import { IconLinkPlus } from "@tabler/icons-react";
+import PrimaryUrl from "@/components/primaryUrl";
 export default function Home() {
     return (
         <>
             <Navbar />
-            <div className="flex justify-center items-center  w-full bg-blacked">
-                <form className="bg-state-800 p-10 w-10/12">
-                    <div className="text-center text-white pt-10 pb-5 text-6xl font-medium tracking-widest">
-                        Link Shortener
-                    </div>
-                    <input
-                        type="text"
-                        name="text"
-                        className="mt-5 px-4 py-3 bg-white border border-slate-300 focus:outline-none rounded-lg sm:text-sm w-full"
-                        placeholder="https://www.google.com/"
-                    />
-                    <div className="flex justify-center items-center mb-20">
-                        <button className="px-4 py-2 bg-blacked text-white rounded-lg font-bold mt-5 flex hover:bg-white hover:text-blacked border-solid border-white border-2">
-                            <IconLocationFilled width={20} height={20} />
-                            <div className="pl-2">Shorten</div>
-                        </button>
-                    </div>
-                </form>
-            </div>
-
+            <PrimaryUrl />
             <div className="flex flex-wrap justify-center items-center ">
                 <div className="flex w-full mt-10 mb-5 items-center justify-center ">
                     <div className="font-medium text-5xl ">How It Works</div>
