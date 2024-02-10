@@ -17,7 +17,7 @@ export default function Home() {
                         placeholder="https://www.google.com/"
                     />
                     <div className="flex justify-center items-center mb-20">
-                        <button className="px-4 py-2 bg-white rounded-lg font-bold mt-5 flex hover:bg-gray">
+                        <button className="px-4 py-2 bg-blacked text-white rounded-lg font-bold mt-5 flex hover:bg-white hover:text-blacked border-solid border-white border-2">
                             <IconLocationFilled width={20} height={20} />
                             <div className="pl-2">Shorten</div>
                         </button>
