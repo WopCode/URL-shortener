@@ -1,8 +1,28 @@
 import { NextResponse } from "next/server";
+import Link from "@/models/date";
+import { connectDB } from "@/db/mongodb";
 
-export function GET() {
-    return NextResponse.json("obteniendo tareas");
+export async function GET() {
+    await connectDB();
+    try {
+        const data = await Link.find();
+        return NextResponse.json(data);
+    } catch (error) {
+        return NextResponse.json(error.message, {
+            status: 400,
+        });
+    }
 }
-export function POST() {
-    return NextResponse.json("creando tareas");
+
+export async function POST(request) {
+    try {
+        const data = await request.json();
+        const short = new Link(data);
+        const save = await short.save();
+        return NextResponse.json(save);
+    } catch (error) {
+        return NextResponse.json(error.message, {
+            status: 400,
+        });
+    }
 }
