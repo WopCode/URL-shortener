@@ -16,8 +16,9 @@ export async function GET() {
 
 export async function POST(request) {
     try {
-        const data = await request.json();
-        const short = new Link(data);
+        const { urlPrimary } = await request.json();
+        const urlShort = Math.random().toString(36).substr(2, 7);
+        const short = new Link({ urlPrimary, urlShort });
         const save = await short.save();
         return NextResponse.json(save);
     } catch (error) {

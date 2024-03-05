@@ -5,7 +5,7 @@ const shortLink = () => {
     return (
         <>
             <Navbar />
-            <div>shortLink</div>
+            <div>shortLink </div>
         </>
     );
 };

@@ -1,40 +1,97 @@
+"use client";
+
+import { IconLocationFilled, IconCopy } from "@tabler/icons-react";
+import { useState } from "react";
+import Link from "next/link";
 import Footer from "@/components/footer";
-import Navbar from "../components/navbar";
-import { IconLinkPlus } from "@tabler/icons-react";
-import PrimaryUrl from "@/components/primaryUrl";
+import Navbar from "@/components/navbar";
+import HelpUrl from "@/components/helpUrl";
+
 export default function Home() {
+    const [showDetail, setShowDetail] = useState(false);
+    const [newUrl, setNewUrl] = useState({ urlPrimary: "" });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await createUrl();
+    };
+
+    const handleChange = (e) =>
+        setNewUrl({ ...newUrl, [e.target.name]: e.target.value });
+    const handleClick = () => {
+        setShowDetail(!showDetail);
+    };
+
+    const createUrl = async () => {
+        try {
+            const res = await fetch("/api/shorten", {
+                method: "POST",
+                body: JSON.stringify(newUrl),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const dataURL = await res.json();
+            if (res.status === 200) {
+                setNewUrl({
+                    urlPrimary: dataURL.urlPrimary,
+                    urlShort: dataURL.urlShort,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <>
             <Navbar />
-            <PrimaryUrl />
-            <div className="flex flex-wrap justify-center items-center ">
-                <div className="flex w-full mt-10 mb-5 items-center justify-center ">
-                    <div className="font-medium text-5xl ">How It Works</div>
-                </div>
-                <div className="flex w-full items-center justify-center">
-                    <div className="font-normal text-2xl tracking-widest">
-                        Shrul + long links = short links
-                    </div>
-                </div>
-                <div className="flex w-3/6 my-14">
-                    <div className="justify-end flex mr-10">
-                        <IconLinkPlus width={150} height={150} />
-                    </div>
 
-                    <div className="justify-start">
-                        <div className="text-center text-2xl font-semibold mb-3 ">
-                            What is a link shortener?
-                        </div>
-                        <div className="text-left ">
-                            A link shortener is an online tool that allows you
-                            to reduce the length of a URL (Uniform Resource
-                            Locator) or web link, generating a shorter and
-                            easier to share version.
-                        </div>
+            <div className="flex justify-center items-center flex-wrap w-full bg-blacked">
+                <form
+                    className="bg-state-800 pt-20 w-10/12"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="text-center text-white pt-10 pb-5 text-6xl font-medium tracking-widest">
+                        Link Shortener
                     </div>
-                </div>
+                    <input
+                        type="text"
+                        name="urlPrimary"
+                        className="mt-5 px-4 py-3 bg-white border border-slate-300 focus:outline-none rounded-lg sm:text-sm w-full"
+                        placeholder="https://www.google.com/"
+                        onChange={handleChange}
+                    />
+                    <div className="flex justify-center items-center mb-20">
+                        <button
+                            className="px-4 py-2 bg-blacked text-white rounded-lg font-bold mt-5 flex hover:bg-white hover:text-blacked border-solid border-white border-2"
+                            onClick={handleClick}
+                        >
+                            <IconLocationFilled width={20} height={20} />
+                            <div className="pl-2">Shorten</div>
+                        </button>
+                    </div>
+                </form>
+                {showDetail && (
+                    <div className="text-white flex justify-evenly  text-2xl font-normal w-full pb-20">
+                        <Link
+                            href={`http://localhost:3000/${newUrl.urlShort}`}
+                            className="underline decoration-1"
+                        >
+                            http://localhost:3000/{newUrl.urlShort}
+                        </Link>
+                        <button title="Copy">
+                            <IconCopy
+                                width={23}
+                                height={23}
+                                className="hover:bg-white hover:text-blacked rounded-md"
+                            />
+                        </button>
+                    </div>
+                )}
             </div>
 
+            <HelpUrl />
             <Footer />
         </>
     );
