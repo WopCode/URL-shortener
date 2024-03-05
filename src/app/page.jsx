@@ -9,7 +9,7 @@ import HelpUrl from "@/components/helpUrl";
 
 export default function Home() {
     const [showDetail, setShowDetail] = useState(false);
-    const [newUrl, setNewUrl] = useState({ urlPrimary: "" });
+    const [newUrl, setNewUrl] = useState({ urlPrimary: "", urlShort: "" });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -78,7 +78,8 @@ export default function Home() {
                             href={`http://localhost:3000/${newUrl.urlShort}`}
                             className="underline decoration-1"
                         >
-                            http://localhost:3000/{newUrl.urlShort}
+                            http://localhost:3000/
+                            {newUrl.urlShort}
                         </Link>
                         <button title="Copy">
                             <IconCopy
