@@ -15,7 +15,10 @@ function Navbar() {
                                 href="/"
                                 className="flex flex-wrap text-white hover:bg-white hover:text-blacked rounded-lg p-1 text-3xl font-bold"
                             >
-                                <IconArrowBadgeRightFilled width={40} height={40}/>
+                                <IconArrowBadgeRightFilled
+                                    width={40}
+                                    height={40}
+                                />
                                 Shurl
                             </a>
                         </div>
@@ -23,8 +26,9 @@ function Navbar() {
                     <div className="">
                         <div className="ml-4 flex items-center space-x-4">
                             <a
-                                href="/"
+                                href="https://github.com/WopCode/URL-shortener"
                                 className="text-white hover:bg-white hover:text-blacked rounded-lg p-2"
+                                target="_blank"
                             >
                                 <IconBrandGithubFilled />
                             </a>
