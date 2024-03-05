@@ -10,15 +10,10 @@ export async function GET(req, { params }) {
         const data = await Link.findOne({ urlShort });
 
         if (!data)
-            return NextResponse.json(
-                {
-                    message: "Not found",
-                },
-                {
-                    status: 404,
-                }
+            return NextResponse.redirect(
+                new URL("/nt/not-found", req.url)
             );
-        // return NextResponse.json(data);
+
         return NextResponse.redirect(new URL(data.urlPrimary, req.url));
     } catch (error) {
         return NextResponse.json(error.message, {
